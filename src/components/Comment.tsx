@@ -5,6 +5,8 @@ import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import CircleIcon from '@mui/icons-material/Circle';
 import Avatar from "./Avatar";
+import moment from "moment";
+import 'moment/locale/pt-br';
 
 const ButtonLike = styled(Button)({
     margin: '1rem 0 1.5rem',
@@ -27,12 +29,12 @@ const ButtonLike = styled(Button)({
 });
 
 
-const Comment = () => {
+const Comment = ({data}) => {
     return (
         <Box>
             <Grid container spacing={1} display={"flex"}>
                 <Grid size={{md: 1 }}>
-                    <Avatar hasAvatar={false} src="https://github.com/mateusfj.png" />
+                    <Avatar hasAvatar={false} src={data.avatarUrl} />
                 </Grid>
                 <Grid
                     size={{ md: 11 }}
@@ -44,12 +46,12 @@ const Comment = () => {
                             justifyContent={"space-between"}
                         >
                             <Box>
-                                <Typography sx={{ fontWeight: "700" }}>Mateus Sousa</Typography>
-                                <Typography variant="caption">Cerca de 2h</Typography>
+                                <Typography sx={{ fontWeight: "700" }}>{data.name}</Typography>
+                                <Typography variant="caption">{moment(data.publishedAt).startOf('day').fromNow()}</Typography>
                             </Box>
                             <DeleteOutlineRoundedIcon sx={{cursor:"pointer"}}/>
                         </Box>
-                        <Typography sx={{ margin: "1rem 0" }}>Muito Bom Devon, Parabéns!!</Typography>
+                        <Typography sx={{ margin: "1rem 0" }}>{data.content}</Typography>
                     </Box>
                     <Box>
                         <ButtonLike variant="outlined" startIcon={<ThumbUpOffAltIcon />}>

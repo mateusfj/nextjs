@@ -9,17 +9,32 @@ import Avatar from "./Avatar";
 import moment from "moment";
 import 'moment/locale/pt-br';
 
+const comments = [
+    {
+        id: 1,
+        data: {
+            avatarUrl: "https://github.com/ailsonazevedo.png",
+            name: "João Silva",
+            publishedAt: "2024-10-01 12:23:00",
+            content: "Cara muito legal isso! Parabéns!!!"
+        }
+    },
+    {
+        id: 2,
+        data: {
+            avatarUrl: "https://github.com/MatheusMagnoCosta.png",
+            name: "Pedro Nascimento",
+            publishedAt: "2024-09-28 10:45:00",
+            content: "Muito louco heheh !!!"
+        }
+    }
+]
+
 
 
 const Post = ({ author, content, publishedAt }) => {
 
-    moment.locale('pt-br')
-
     const [botao, setBotao] = useState(false);
-
-    function elseif(arg0: boolean) {
-        throw new Error("Function not implemented.");
-    }
 
     return (
         <Box sx={style.post.conteiner}>
@@ -87,8 +102,11 @@ const Post = ({ author, content, publishedAt }) => {
                     Publicar
                 </Button>}
             </form>
-            <Comment />
-            <Comment />
+            {
+                comments.map(comment => {
+                    return <Comment data={comment.data}/>
+                })
+            }
         </Box>
     );
 }
