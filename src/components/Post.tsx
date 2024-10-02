@@ -1,26 +1,34 @@
 'use client'
 import { Box, Button, Divider, Typography } from "@mui/material";
-import Image from "next/image";
-import user from '@/public/prog.jpg'
+import Grid from '@mui/material/Grid2';
 import Link from "next/link";
 import style from "@/src/theme/style"
 import { useState } from "react";
 import Comment from "./Comment";
+import Avatar from "./Avatar";
+import moment from "moment";
+import 'moment/locale/pt-br';
 
 
 
-const Post = () => {
+const Post = ({ author, content, publishedAt }) => {
+
+    moment.locale('pt-br')
 
     const [botao, setBotao] = useState(false);
 
+    function elseif(arg0: boolean) {
+        throw new Error("Function not implemented.");
+    }
+
     return (
         <Box sx={style.post.conteiner}>
-            <Box sx={style.post.header}>
-                <Box
+            <Grid container sx={style.post.header}>
+                <Grid
                     display={"flex"}
                     gap={"1rem"}
                 >
-                    <Image src={user} style={style.post.img} alt="" />
+                    <Avatar src={author.avatarUrl} />
                     <Box
                         display={"flex"}
                         flexDirection={"column"}
@@ -28,21 +36,30 @@ const Post = () => {
                     >
                         <Typography
                             sx={{ fontWeight: 700 }}>
-                            Carlos Rangel
+                            {author.name}
                         </Typography>
                         <Typography sx={{ color: style.colors.gray400 }}>
-                            Dev Front-End
+                            {author.role}
                         </Typography>
                     </Box>
-                </Box>
-                <Typography sx={{ color: style.colors.gray400 }}>
-                    Publicado há 1h
-                </Typography>
-            </Box>
+                </Grid>
+                <Grid>
+                    <Typography sx={{ color: style.colors.gray400 }}>
+                        Públicado {moment(publishedAt).startOf('day').fromNow()}
+                    </Typography>
+                </Grid>
+            </Grid>
             <Box padding={"1rem 0"}>
-                <Typography sx={{ marginTop: "1rem" }}>Fala galeraa{' '}👋</Typography>
-                <Typography sx={{ marginTop: "1rem" }}>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare{' '}🚀</Typography>
-                <Typography sx={{ marginTop: "1rem", color: style.colors.green500 }}>👉{' '}jane.design/doctorcare</Typography>
+                {
+                    content.map(line => {
+                        if (line.type == "paragraph") {
+                            return <Typography sx={{ marginTop: "1rem" }}>{line.content}</Typography>
+                        }
+                        if (line.type == "line") {
+                            return <Link style={{ marginTop: "1rem", color: style.colors.green500 }} href={'#'}>{line.content}</Link>
+                        }
+                    })
+                }
                 <Typography sx={{ marginTop: "1rem" }}>
                     <Link style={style.post.link} href={"#"}>#novoprojeto{' '}</Link>
                     <Link style={style.post.link} href={"#"} >#nlw{' '}</Link>
@@ -51,7 +68,7 @@ const Post = () => {
             </Box>
             <Divider
                 sx={{ background: style.colors.gray600 }} />
-            <form>
+            <form style={{ margin: "1rem 0 " }}>
                 <Typography sx={{ marginTop: "1.5rem", fontWeight: "700" }}>Deixe seu feedback</Typography>
                 <textarea
                     style={style.post.textArea}
@@ -70,7 +87,8 @@ const Post = () => {
                     Publicar
                 </Button>}
             </form>
-            <Comment/>
+            <Comment />
+            <Comment />
         </Box>
     );
 }

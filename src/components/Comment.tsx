@@ -1,36 +1,64 @@
 import style from "@/src/theme/style"
-import { Box, Typography } from "@mui/material";
+import { Box, Button, styled, Typography } from "@mui/material";
 import Grid from '@mui/material/Grid2';
-import Image from "next/image";
-import user from "@/public/prog.jpg"
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import CircleIcon from '@mui/icons-material/Circle';
+import Avatar from "./Avatar";
+
+const ButtonLike = styled(Button)({
+    margin: '1rem 0 1.5rem',
+    boxShadow: 'none',
+    textTransform: 'none',
+    fontSize: 16,
+    padding: '6px 12px',
+    border: "none",
+    lineHeight: 1.5,
+    color: style.colors.white,
+    '&:hover': {
+        boxShadow: 'none',
+        backgroundColor: 'transparent',
+        cursor:"pointer",
+        color: style.colors.green500
+    },
+    '&:focus': {
+        borderRadius: "2px"
+    },
+});
+
 
 const Comment = () => {
     return (
         <Box>
-            <Grid container spacing={1} display={"flex"} margin={"2rem 0"}>
-                <Grid size={{ md: 1 }}>
-                    <Image src={user} width={50} height={50} style={{ borderRadius: "8px" }} alt="" />
+            <Grid container spacing={1} display={"flex"}>
+                <Grid size={{md: 1 }}>
+                    <Avatar hasAvatar={false} src="https://github.com/mateusfj.png" />
                 </Grid>
                 <Grid
                     size={{ md: 11 }}
-                    sx={{ background: style.colors.gray700, borderRadius: "8px" }}
                     width={"100%"}
-                    padding={"1rem"}
                 >
-                    <Box
-                        display={"flex"}
-                        justifyContent={"space-between"}
-                    >
-                        <Box>
-                            <Typography sx={{ fontWeight: "700" }}>Mateus Sousa</Typography>
-                            <Typography variant="caption">Cerca de 2h</Typography>
+                    <Box padding={"1rem"} sx={{ background: style.colors.gray700, borderRadius: "8px" }}>
+                        <Box
+                            display={"flex"}
+                            justifyContent={"space-between"}
+                        >
+                            <Box>
+                                <Typography sx={{ fontWeight: "700" }}>Mateus Sousa</Typography>
+                                <Typography variant="caption">Cerca de 2h</Typography>
+                            </Box>
+                            <DeleteOutlineRoundedIcon sx={{cursor:"pointer"}}/>
                         </Box>
-                        <DeleteForeverOutlinedIcon />
+                        <Typography sx={{ margin: "1rem 0" }}>Muito Bom Devon, Parabéns!!</Typography>
                     </Box>
-                    <Typography sx={{margin:"1.5rem 0"}}>Muito Bom Devon, Parabéns!!</Typography>
+                    <Box>
+                        <ButtonLike variant="outlined" startIcon={<ThumbUpOffAltIcon />}>
+                            Aplaudir <CircleIcon sx={{fontSize: "5px", margin:"0 0.25rem"}} /> 20
+                        </ButtonLike>
+                    </Box>
                 </Grid>
             </Grid>
+
         </Box>
     )
 
