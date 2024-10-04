@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { Box } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import Sidebar from "../components/Sidebar";
@@ -72,7 +73,7 @@ const Home = () => {
         <Grid size={{ xs: 12, md: 9 }}>
           {
             posts.map(post => {
-              return <Post author={post.author} content={post.content} publishedAt={post.publishedAt}/>
+              return <Post id={post.id} author={post.author} content={post.content} publishedAt={post.publishedAt}/>
             })
           }
         </Grid>
